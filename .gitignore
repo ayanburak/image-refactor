@@ -1,0 +1,36 @@
+# Sanal ortam
+.venv/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.pytest_cache/
+
+# Ortam / gizli değerler
+.env
+
+# Fotoğraflar ve pipeline çıktıları
+data/
+input/
+output/
+outputs/
+*.npy
+*.heic
+*.HEIC
+*.jpg
+*.jpeg
+*.png
+!docs/**/*.png
+
+# Sidecar hash dosyaları
+*.sidecar.json
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editör
+.vscode/
+.idea/
