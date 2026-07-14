@@ -14,6 +14,8 @@ import hashlib
 from abc import abstractmethod, ABC
 from enum import Enum
 
+# --- Sabitler ---
+
 class HashAlgorithm(Enum):
     """
     Desteklenen hash algoritmalarının sabit listesi.
@@ -24,15 +26,15 @@ class HashAlgorithm(Enum):
 
     SHA256 = "sha256"
 
-# Soyut sınıf tanımlaması, bütün hashleme algoritmaları sınıftan türetilir.
-# Yeni bir algoritma eklenmek istediğinde kalıtım al, _REGISTRY'e ekle.
+# --- Soyut Sınıf ---
+
 class HashingStrategy(ABC):
     """
-    Hash stratejileri için soyut sözleşme.
+    Hash stratejileri için soyut sınıf.
 
     Bu sınıfın kendisi örneklenemez. Sadece alt sınıfların uyması gereken
-    kuralı tanımlar. Orjinallik kontrolü hangi somut strateji kullanıldığını 
-    bilmeden, sadece bu sözleşmeye güvenerek çalışır.
+    kuralı tanımlar. Orjinallik kontrolü hangi somut strateji kullanıldığını
+    bilmeden, sadece bu soyut sınıfa güvenerek çalışır.
     """
 
     @abstractmethod
@@ -48,8 +50,10 @@ class HashingStrategy(ABC):
         """
         pass
 
+# --- Somut stratejiler ---
+
 class Sha256Strategy(HashingStrategy):
-    """`HashingStrategy` sözleşmesini SHA-256 algoritmasıyla dolduran sınıf."""
+    """`HashingStrategy` soyut sınıfını SHA-256 algoritmasıyla dolduran sınıf."""
 
     def hash_file(self, path: str) -> str:
         # Dosya binary modda açılır 
@@ -61,6 +65,8 @@ class Sha256Strategy(HashingStrategy):
 
             return hashed_string
 
+
+# --- Registry / Factory ---
 
 # Hangi HashAlgorithm değerinin hangi somut HashingStrategy sınıfına karşılık
 # geldiğini tutar. Yeni bir algoritma eklerken tek değişiklik burasıdır.
