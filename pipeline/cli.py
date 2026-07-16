@@ -64,11 +64,11 @@ def main():
     parser = argparse.ArgumentParser()
     # Zorunlu, konumsal argüman: tek bir görsel dosyasının
     # ya da bir görsel klasörünün yolu.
-    parser.add_argument("input")
+    parser.add_argument("input", help="İşlenecek görsel dosyasının ya da görsel klasörünün yolu")
     # Zorunlu argüman: "25%" gibi bir oran ya da "512x384" gibi sabit bir boyut.
-    parser.add_argument("--target", required=True)
+    parser.add_argument("--target", required=True, help="Hedef boyut: '25%%' gibi bir oran ya da '512x384' gibi sabit genişlik x yükseklik")
     # Opsiyonel argüman; verilmezse output klasörü kullanılır.
-    parser.add_argument("--output", default="output")
+    parser.add_argument("--output", default="output", help="Çıktıların yazılacağı ana klasör (varsayılan: output)")
     args = parser.parse_args()
 
     # Girdi yolu ya da hedef boyut formatı geçersizse, ValueError fırlatılır.

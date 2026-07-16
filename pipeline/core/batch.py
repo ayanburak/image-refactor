@@ -92,6 +92,12 @@ class BatchRunner():
         else:
             raise ValueError(f"Geçersiz yol: {input_path}")
 
+        # Klasörde hiç desteklenen görsel bulunamadıysa, kullanıcıya
+        # sessizce hiçbir şey yapılmadan çıkılmaz; bunun yerine bir uyarı gösterilir.
+        if not image_paths:
+            print(f"Uyarı: {input_path} içinde işlenecek görsel bulunamadı.")
+            return
+
         for image_path in image_paths:
             # "stem", dosyanın uzantısız kısmı; çıktı dosyalarının adının
             # temeli olarak kullanılır.
