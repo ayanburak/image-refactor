@@ -1,6 +1,7 @@
 # Image Refactor
 
-Telefon kameralarından gelen HEIC/JPEG fotoğrafları, piksel düzeyinde orijinalliğini bozmadan makine öğrenmesi modellerine beslenebilir hale getiren dönüştürme aracı.
+Fotoğrafları bütünlük doğrulamasıyla birlikte, orijinal piksel değerlerine dokunmadan ML modellerine hazırlayan dönüştürme aracı.
+
 
 ## Kullanım
 
