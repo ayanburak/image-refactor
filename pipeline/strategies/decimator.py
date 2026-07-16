@@ -57,6 +57,14 @@ class NearestPixelDecimator(Decimator):
         target_height = target_size[0]                # Gelen tuple'ın birinci elemanı / Hedef Yükseklik
         target_width = target_size[1]                 # Gelen tuple'ın ikinci elemanı / Hedef Genişlik
 
+        if target_height <= 0 or target_width <= 0:
+            raise ValueError(f"Hedef boyut sıfır ya da negatif olamaz: {target_size}")
+
+        if target_height > original_height or target_width > original_width:
+            raise ValueError(
+                f"Hedef boyut {target_size}, orijinal boyuttan ({original_height}, {original_width}) büyük olamaz"
+            )
+
         row_step = original_height // target_height
         col_step = original_width // target_width
 
