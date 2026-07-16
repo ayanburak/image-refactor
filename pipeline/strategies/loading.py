@@ -36,30 +36,30 @@ class ImageLoader(ABC):
 # --- Somut stratejiler ---
 
 # EXIF, bir görsel dosyasının içine gömülü metadata standardı
-# çekim tarihi, kamera modeli gibi bilgilerin yanında, bizim için 
-# önemli olan orientation etiketini de taşır. 
-# Telefon, fotoğrafı sensörün baktığı hâliyle kaydeder ve 
-# bunu göstermeden önce şu kadar döndür bilgisini bu etikete yazar.
+# çekim tarihi, kamera modeli gibi bilgilerin yanında, bu proje için
+# önemli olan orientation etiketini de taşır.
+# Telefon, fotoğrafı sensörün baktığı hâliyle kaydeder ve
+# bunu göstermeden önce şu kadar döndür bilgisi bu etikete yazılır.
 #
 #
 class LoadByExif(ImageLoader):
     """`ImageLoader` soyut sınıfını, EXIF yönünü düzelterek dolduran sınıf.
 
-    `load` çağrıldığında sırasıyla: dosyayı Pillow ile açar, EXIF
-    etiketine göre gerekiyorsa döndürür, renk modunu RGB'ye sabitler,
-    ve sonucu numpy piksel matrisine çevirir. HEIC dosyaları da aynı 
+    `load` çağrıldığında sırasıyla: dosya Pillow ile açılır, EXIF
+    etiketine göre gerekiyorsa döndürülür, renk modu RGB'ye sabitlenir,
+    ve sonuç numpy piksel matrisine çevrilir. HEIC dosyaları da aynı
     şekilde açılabilir.
     """
 
     def load(self, path: str) -> np.array:
         image = Image.open(path)
 
-        # EXIF etiketine göre gerekiyorsa döndürür; etiket normal ya da
-        # yoksa hiçbir şey yapmadan görseli olduğu gibi bırakır.
+        # EXIF etiketine göre gerekiyorsa döndürülür; etiket normal ya da
+        # yoksa hiçbir şey yapılmadan görsel olduğu gibi bırakılır.
         image = ImageOps.exif_transpose(image)
 
         # Bazı görseller gri tonlamalı ya da farklı bir modda olabilir;
-        # bu, matrisin her zaman 3 kanallı (R, G, B) olmasını garantiler.
+        # bu sayede matrisin her zaman 3 kanallı (R, G, B) olması garanti edilir.
         image = image.convert("RGB")
         matrix = np.array(image)
 

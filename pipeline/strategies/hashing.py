@@ -38,7 +38,7 @@ class HashingStrategy(ABC):
     """
 
     @abstractmethod
-    def hash_file(self, path) -> str:
+    def hash_file(self, path: str) -> str:
         """Verilen yoldaki dosyanın hash'ini hesaplar.
 
         Args:
@@ -59,9 +59,9 @@ class Sha256Strategy(HashingStrategy):
         # Dosya binary modda açılır 
         # hash fonksiyonu ham bitelar üzerinde çalışır.
         with open(path, "rb") as file:
-            image_bytes = file.read()                             # Biteları okunabilir formatta al
-            hashed_image = hashlib.sha256(image_bytes)            # Okunabilir biteları hashle
-            hashed_string = hashed_image.hexdigest()              # Hashlenmiş formatı okunabilir hale getir
+            image_bytes = file.read()                             # Biteları okunabilir formatta alınır
+            hashed_image = hashlib.sha256(image_bytes)            # Okunabilir biteları hashlenir
+            hashed_string = hashed_image.hexdigest()              # Hashlenmiş format okunabilir hale getirilir
 
             return hashed_string
 

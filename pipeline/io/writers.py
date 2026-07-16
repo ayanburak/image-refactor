@@ -17,12 +17,12 @@ class OutputWriter(ABC):
 
     @abstractmethod
     def write(self, matrix: np.array, base_path: str) -> str:
-        """Piksel matrisini diske yazar.
+        """Piksel matrisi diske yazılır.
 
         Args:
             matrix: Yazılacak piksel matrisi.
             base_path: Uzantısız temel dosya yolu (örn. "output/image").
-                Uzantıyı hangi somut sınıf kullanılıyorsa o ekler.
+                Uzantı, hangi somut sınıf kullanılıyorsa onun tarafından eklenir.
 
         Returns:
             Dosyanın gerçekten yazıldığı tam uznatılı yol.
@@ -36,7 +36,7 @@ class NpyWriter(OutputWriter):
 
     def write(self, matrix: np.array, base_path: str) -> str:
         # np.save zaten .npy ile bitmeyen isimlere uzantıyı kendisi ekliyor,
-        # ama burada ekliyoruz ki dönen yol, gerçekte
+        # ama burada elle eklenir ki dönen yol, gerçekte
         # yazılan dosyayla birebir aynı olsun.
         if not base_path.endswith(".npy"):
             base_path += ".npy"
@@ -49,8 +49,8 @@ class PngWriter(OutputWriter):
 
     def write(self, matrix: np.array, base_path: str) -> str:
         # Image.fromarray, numpy dizisini bir Image nesnesine çevirir;
-        # uint8'e çevirmek ve mode="RGB" vermek, matrisin her zaman
-        # 0-255 aralığında 3 renk kanallı olarak yorumlanmasını garantiler.
+        # uint8'e çevirmek ve mode="RGB" vermek ile, matrisin her zaman
+        # 0-255 aralığında 3 renk kanallı olarak yorumlanması garanti edilir.
         img = Image.fromarray(matrix.astype(np.uint8), mode="RGB")
 
         # Pillow, .save() çağrısında formatı dosya uzantısından anlar;

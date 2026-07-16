@@ -38,6 +38,6 @@ class SidecarStore():
         data.update(fields)
 
         # "w" modu dosyanın tamamını yeniden yazar, bu yüzden birleştirilmiş
-        # eski + yeni veriyi yazıyoruz, sadece fields'ı değil.
+        # eski + yeni veri yazılır, sadece fields değil.
         with open(path, "w") as file:
             json.dump(data, file)
