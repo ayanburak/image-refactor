@@ -21,7 +21,7 @@ class OutputWriter(ABC):
 
         Args:
             matrix: Yazılacak piksel matrisi.
-            base_path: Uzantısız temel dosya yolu (örn. "output/image").
+            base_path: Uzantısız temel dosya yolu, örneğin "output/image".
                 Uzantı, hangi somut sınıf kullanılıyorsa onun tarafından eklenir.
 
         Returns:

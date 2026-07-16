@@ -48,8 +48,8 @@ class RatioTargetSize(TargetSize):
     def __init__(self, ratio: float):
         """
         Args:
-            ratio: Hedef boyutu belirleyen çarpan (örn. 0.25, orijinalin
-                %25'i demektir).
+            ratio: Hedef boyutu belirleyen çarpan. 0.25 değeri, orijinalin
+                %25'i demektir.
         """
         self.ratio = ratio
 

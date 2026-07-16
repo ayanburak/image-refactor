@@ -10,7 +10,7 @@ class SidecarStore():
     """Sidecar json dosyasını okuyup güncelleyen sınıf.
 
     Burada birden fazla strateji yok, tek bir mantık yeterli olduğu için
-    (diğer dosyalardan farklı olarak) soyut bir sınıf yok.
+    soyut bir sınıf yok.
     """
 
     def update(self, path: str, fields: dict) -> None:
