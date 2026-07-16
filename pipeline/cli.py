@@ -3,6 +3,7 @@ Komut satırı argümanlarını okuyup pipeline'ı kurar ve çalıştırır.
 """
 
 import argparse
+import sys
 
 from pipeline.core.batch import BatchRunner
 from pipeline.core.pipeline import Pipeline
@@ -70,17 +71,25 @@ def main():
     parser.add_argument("--output", default="output")
     args = parser.parse_args()
 
-    # Metin olarak gelen hedef boyut, uygun somut stratejiye çevrilir.
-    target_size = parse_target_size(args.target)
+    # Girdi yolu ya da hedef boyut formatı geçersizse, ValueError fırlatılır.
+    # Bu, görsel başına hata izolasyonundan önce, daha işlem başlamadan
+    # oluşan bir hata olduğu için burada ayrıca yakalanır; kullanıcıya
+    # tam bir traceback yerine tek satır temiz bir mesaj gösterilir.
+    try:
+        # Metin olarak gelen hedef boyut, uygun somut stratejiye çevrilir.
+        target_size = parse_target_size(args.target)
 
-    # Composition root çağrılarak, tüm bileşenlerle kurulmuş pipeline elde edilir.
-    pipeline = build_pipeline(target_size)
+        # Composition root çağrılarak, tüm bileşenlerle kurulmuş pipeline elde edilir.
+        pipeline = build_pipeline(target_size)
 
-    # BatchRunner, kendi zaman damgalı çalıştırma klasörünü oluşturur ve
-    # verilen girdiyi, ister tek dosya ister klasör olsun, tarayıp her
-    # görsel için pipeline'ı çalıştırır.
-    runner = BatchRunner(pipeline, args.output)
-    runner.run(args.input)
+        # BatchRunner, kendi zaman damgalı çalıştırma klasörünü oluşturur ve
+        # verilen girdiyi, ister tek dosya ister klasör olsun, tarayıp her
+        # görsel için pipeline'ı çalıştırır.
+        runner = BatchRunner(pipeline, args.output)
+        runner.run(args.input)
+    except ValueError as e:
+        print(f"Hata: {e}")
+        sys.exit(1)
 
 
 if __name__ == "__main__":
